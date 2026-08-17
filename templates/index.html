@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>CIFAR-10 Image Classification</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>CIFAR-10 Image Classification</h1>
+
+        <p class="subtitle">
+            Upload an image and let the deep learning model classify it.
+        </p>
+
+
+        <form action="/predict"
+              method="POST"
+              enctype="multipart/form-data">
+
+            <label for="image" class="upload-label">
+                Choose Image
+            </label>
+
+            <input type="file"
+                   id="image"
+                   name="image"
+                   accept="image/*"
+                   required>
+
+            <button type="submit">
+                Classify Image
+            </button>
+
+        </form>
+
+
+        {% if error %}
+
+            <div class="error">
+                {{ error }}
+            </div>
+
+        {% endif %}
+
+
+        {% if image_path %}
+
+            <div class="result">
+
+                <h2>Uploaded Image</h2>
+
+                <img src="{{ url_for('static', filename='uploads/' + image_path) }}"
+                     alt="Uploaded Image"
+                     class="prediction-image">
+
+
+                <h2>Prediction</h2>
+
+                <div class="prediction">
+                    {{ prediction }}
+                </div>
+
+                <p class="confidence">
+                    Confidence: {{ confidence }}%
+                </p>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</body>
+
+</html>
